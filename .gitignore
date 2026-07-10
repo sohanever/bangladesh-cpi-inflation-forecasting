@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.env
+.venv/
+env/
+venv/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Data Science
+*.pkl
+*.h5
+*.model
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ============================================================
+# CRITICAL: Never commit the dissertation or large IMF files
+# ============================================================
+*.docx
+*.doc
+
+# Large IMF raw dataset files (too large for GitHub, >50MB)
+dataset_2026-07-04T07_00_40*
+dataset_2026-07-04T07_58_04*
+dataset_2026-07-04T08_05_31*
+dataset_2026-07-04T08_22_38*
+data/raw/dataset_*.csv
+
+# General large file safety net
+*.zip
+*.tar.gz
