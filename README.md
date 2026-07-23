@@ -6,7 +6,8 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](https://jupyter.org/)
 
-> **Authors:** Imran Hasan Sohan, Karim Mohammed Rezaul  
+> **Author:** Imran Hasan Sohan  
+> **Supervisor:** Karim Mohammed Rezaul  
 > **Affiliation:** Centre for Applied Research in Software and IT (CARSIT), Brit College of Engineering and Technology  
 > **Contact:** imran173461@gmail.com | [@sohanever](https://github.com/sohanever)
 
@@ -230,7 +231,7 @@ jupyter notebook
 
 ```bibtex
 @misc{sohan2026bangladesh,
-  author       = {Imran Hasan Sohan and Karim Mohammed Rezaul},
+  author       = {Imran Hasan Sohan},
   title        = {Forecasting Consumer Prices in a Data-Scarce, Crisis-Prone Economy:
                   A Leakage-Controlled Comparison of Statistical, Machine Learning,
                   Deep Learning, and Hybrid Models for Bangladesh},
