@@ -7,7 +7,7 @@
 [![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](https://jupyter.org/)
 
 > **Author:** Imran Hasan Sohan  
-> **Supervisor:** Karim Mohammed Rezaul  
+> **Supervisor:** Prof. Dr. Karim Mohammed Rezaul  
 > **Affiliation:** Centre for Applied Research in Software and IT (CARSIT), Brit College of Engineering and Technology  
 > **Contact:** imran173461@gmail.com | [@sohanever](https://github.com/sohanever)
 
