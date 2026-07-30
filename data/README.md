@@ -5,7 +5,7 @@
 | File | Description | Source |
 |------|-------------|--------|
 | `processed/bangladesh_cpi_monthly_RESEARCH_READY.csv` | Monthly Bangladesh CPI (2000–2026), research-ready | IMF IFS + BBS |
-| `processed/bangladesh_combined_dataset.csv` | Master dataset combining CPI + all macroeconomic variables | Compiled from multiple sources |
+| `processed/bangladesh_MASTER_dataset.csv` | Master dataset combining CPI + all macroeconomic variables | Compiled from multiple sources |
 | `raw/DFF.csv` | US Federal Funds Rate (daily) | [FRED, Federal Reserve Bank of St. Louis](https://fred.stlouisfed.org/series/DFF) |
 | `raw/POILBREUSDM.csv` | Brent Crude Oil Price (USD/barrel, monthly) | [FRED, Federal Reserve Bank of St. Louis](https://fred.stlouisfed.org/series/POILBREUSDM) |
 | `raw/IQ12260.csv` | Exchange Rate data | IMF International Financial Statistics |
@@ -40,7 +40,7 @@ You can download them directly from the **IMF Data Portal**:
 
 ## Data Construction Pipeline
 
-The master dataset (`bangladesh_combined_dataset.csv`) was built by:
+The master dataset (`bangladesh_MASTER_dataset.csv`) was built by:
 1. Extracting Bangladesh-specific rows from each raw IMF dataset
 2. Aligning all series to monthly frequency (January 2000 base)
 3. Engineering dummy variables: `COVID_dummy`, `UkraineWar_dummy`, `BD_Unrest_dummy`
