@@ -1,0 +1,36 @@
+[
+ {
+  "model": "LSTM",
+  "best": {
+   "units": 64,
+   "dropout": 0.1,
+   "lookback": 6
+  },
+  "paper": {
+   "units": 64,
+   "dropout": 0.2,
+   "lookback": 12
+  },
+  "sel_mean": 2.7470226032936105,
+  "sel_sd": 0.0931488158545336,
+  "pap_mean": 2.750702759681288,
+  "pap_sd": 0.07233591630718872
+ },
+ {
+  "model": "Transformer",
+  "best": {
+   "heads": 8,
+   "key_dim": 16,
+   "lookback": 12
+  },
+  "paper": {
+   "heads": 4,
+   "key_dim": 8,
+   "lookback": 12
+  },
+  "sel_mean": 2.808003290657621,
+  "sel_sd": 0.06599551062865638,
+  "pap_mean": 2.81829045220377,
+  "pap_sd": 0.08996816285098888
+ }
+]
