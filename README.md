@@ -255,7 +255,7 @@ Jan 2000 -------------- Dec 2020  |  Jan 2021 ---------- Apr 2026
 **Leakage prevention checklist**
 
 1. Feature scalers fitted on training data only
-2. Wavelet and VMD decompositions computed causally (rolling, past-only)
+2. Wavelet and VMD decompositions computed causally in the main tournament; the full-series variant is run only in the leakage ablation
 3. HMM fitted on training residuals only
 4. Exogenous variables lagged one month
 5. Chronological split, no shuffling
@@ -263,7 +263,7 @@ Jan 2000 -------------- Dec 2020  |  Jan 2021 ---------- Apr 2026
 
 **Inference**
 
-Model rankings tested with the Diebold-Mariano statistic (squared-error loss, HLN small-sample correction). Neural results reported over ten seeds. Model Confidence Set (Hansen-Lunde-Nason, 5000 bootstrap replications) confirms only SARIMA-based models survive at 90% and 95% confidence. Holm step-down multiplicity correction applied to the eight pairwise comparisons.
+Model rankings tested with the Diebold-Mariano statistic (squared-error loss, HLN small-sample correction). Neural results reported over ten seeds. Model Confidence Set (Hansen-Lunde-Nason, 5000 bootstrap replications) confirms only SARIMA-based models survive at 90% and 95% confidence. Holm step-down multiplicity correction applied to the nine pairwise comparisons.
 
 ---
 

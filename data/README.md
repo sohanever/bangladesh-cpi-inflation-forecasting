@@ -43,6 +43,8 @@
 
 | File | Description |
 |------|-------------|
+| `processed/move2_results.json` | Full cross-country replication results with DM tests (Table XVI) |
+| `processed/move2_results.csv` | Same results in flat CSV format |
 | `processed/session6_grid_LSTM.csv` | 27-configuration LSTM grid search results (Table XVIII) |
 | `processed/session6_grid_Transformer.csv` | 6-configuration Transformer grid search results |
 | `processed/session6_grid_summary.json` | Best vs paper configuration comparison |
