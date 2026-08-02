@@ -15,7 +15,7 @@
 
 ## About
 
-This repository accompanies an IEEE-format research manuscript that runs a leakage-controlled, head-to-head comparison of twelve forecasting models across four families -- statistical, machine learning, deep learning, and hybrid -- alongside four naive benchmarks, on Bangladeshi consumer prices. The evaluation includes Diebold-Mariano inference, ten-seed neural evaluation, multi-horizon robustness checks, a decomposition leakage ablation, a hyperparameter grid search, and replication on five further Asian economies.
+This repository accompanies a research manuscript that runs a leakage-controlled, head-to-head comparison of twelve forecasting models across four families -- statistical, machine learning, deep learning, and hybrid -- alongside four naive benchmarks, on Bangladeshi consumer prices. The evaluation includes Diebold-Mariano inference, ten-seed neural evaluation, multi-horizon robustness checks, a decomposition leakage ablation, a hyperparameter grid search, and replication on five further Asian economies.
 
 The dataset covers **317 monthly observations (January 2000 - May 2026)**, pairing the harmonised CPI with ten macroeconomic drivers and three structural-break indicators. The 64-month test window (January 2021 - April 2026) deliberately contains the COVID-19 pandemic, the 2022-23 commodity shock, and the 2024 domestic unrest.
 
@@ -62,6 +62,12 @@ The dataset covers **317 monthly observations (January 2000 - May 2026)**, pairi
 | Transformer | 0.9923 | 2.9684 | 2.3559 | 0.971% |
 | LASSO | 0.9770 | 5.1332 | 4.3137 | 1.676% |
 
+> **Note on the Transformer row.** The archived notebook reproduces the Transformer at RMSE
+> 2.9684, while the manuscript reports 2.7714 from the original tournament run. The two differ
+> because attention-layer initialisation is not bit-reproducible across TensorFlow builds; the
+> manuscript documents this and reports the ten-seed distribution (range 2.6391 to 3.1229)
+> rather than any single run. Both values fall inside that distribution.
+
 SARIMA(2,1,2)x(0,1,1,12) won decisively -- significantly outperforming every competitor and every naive benchmark under Diebold-Mariano tests. Bangladesh CPI is dominated by trend plus a twelve-month seasonal rhythm driven by harvest cycles, and SARIMA captures that structure by specification rather than having to learn it from 252 training examples. The hybrid SARIMA-LSTM was a close runner-up but never significantly improved on pure SARIMA in ten seeds, and was significantly worse in three -- adding seed risk without adding accuracy.
 
 The Model Confidence Set (Hansen, Lunde, Nason) retains only three models at both 90% and 95% confidence: SARIMA, SARIMA-LSTM, and SARIMA-HMM-LSTM. Every other model and all naive benchmarks are excluded with p < 0.005.
@@ -72,16 +78,18 @@ The Model Confidence Set (Hansen, Lunde, Nason) retains only three models at bot
 
 The full protocol was replicated on five further Asian economies to test external validity. The statistical family supplies the champion in five of six economies; a univariate LSTM wins in none.
 
-| Economy | Champion | Champion RMSE | SARIMA RMSE | ARIMA RMSE | LSTM RMSE |
-|---|---|---|---|---|---|
-| Bangladesh | SARIMA | **1.3053** | 1.3053 | 2.6239 | 2.751 |
-| India | SARIMA | **0.7747** | 0.7747 | 0.8993 | 0.881 |
-| Philippines | ARIMA | 0.7988 | 0.8413 | **0.7988** | 0.811 |
-| Indonesia | ARIMA | **0.3830** | 0.4023 | 0.3830 | 0.450 |
-| Pakistan | ARIMA | **2.3379** | 3.2671 | 2.3379 | 3.451 |
-| Sri Lanka | ARIMA | **4.8652** | 9.1427 | 4.8652 | 6.103 |
+| Economy | Champion | SARIMA | ARIMA | RW + drift | LSTM |
+| ----------- | ---------- | ---------- | ---------- | ---------- | ------ |
+| Bangladesh  | SARIMA     | **1.3053** | 2.6216     | 2.7781     | 3.1533 |
+| India       | SARIMA     | **0.4799** | 0.5571     | 0.6163     | 0.5243 |
+| Pakistan    | ARIMA      | 3.2861     | **3.2445** | 3.6466     | 3.6954 |
+| Sri Lanka   | RW + drift | 6.5135     | 4.4413     | **4.3352** | 4.9662 |
+| Indonesia   | ARIMA      | 0.4140     | **0.3993** | 0.4003     | 0.6189 |
+| Philippines | SARIMA     | **0.6315** | 0.6624     | 0.6851     | 0.6487 |
 
-The seasonal advantage is regime-dependent: Bangladesh's 50.2% SARIMA-over-ARIMA gain is three times India's and reverses entirely in Sri Lanka, where an inflation regime break (YoY inflation peaking at 72.5%) destroys the seasonal pattern the model was trained on.
+RMSE values are in index points and are not comparable across economies, because each CPI sits on a different base year.
+
+The seasonal advantage is strongly regime-dependent. Isolating the contribution of the seasonal component (ARIMA vs SARIMA) shows it is significant in only two of the six economies: Bangladesh +50.2% (DM p = 0.0017) and India +13.9% (p = 0.0366). It is statistically undetectable in Pakistan (-1.3%), Indonesia (-3.7%) and the Philippines (+4.7%), and significantly negative in Sri Lanka (-46.7%, p < 0.001), where an inflation regime break with year-on-year inflation peaking at 72.54% destroys the seasonal pattern the model was trained on. Bangladesh is therefore the strongest case in the sample rather than a typical one.
 
 ---
 
@@ -89,10 +97,10 @@ The seasonal advantage is regime-dependent: Bangladesh's 50.2% SARIMA-over-ARIMA
 
 Computing decompositions over the full sample instead of causally inflates accuracy, but the effect depends on the basis:
 
-| Model | Causal RMSE | Full-series RMSE | Premium | Significant? |
-|---|---|---|---|---|
-| VMD-LSTM | 2.46 +/- 0.37 | 1.76 +/- 0.13 | **29.8 +/- 5.7%** | Yes (all 10 seeds) |
-| Wavelet-SARIMA-LSTM | 1.55 +/- 0.17 | 1.55 +/- 0.19 | 4.8 +/- 11.0% | No (sign reverses in 3 seeds) |
+| Model               | Causal RMSE   | Full-series RMSE | Premium           | Significant?                  |
+| ------------------- | ------------- | ---------------- | ----------------- | ----------------------------- |
+| VMD-LSTM            | 2.504 +/- 0.098 | 1.756 +/- 0.132 | **29.8 +/- 5.7%** | Yes (all 10 seeds)            |
+| Wavelet-SARIMA-LSTM | 1.635 +/- 0.116 | 1.546 +/- 0.094 | 4.8 +/- 11.0%     | No (sign reverses in 3 seeds) |
 
 The risk is concentrated in decompositions whose basis is estimated from the data (VMD) rather than fixed in advance (wavelet). Reports of large accuracy gains from adaptive decomposition that do not document causal computation should be read as upper bounds.
 
@@ -292,6 +300,12 @@ jupyter notebook
   howpublished = {\url{https://github.com/sohanever/bangladesh-cpi-inflation-forecasting}}
 }
 ```
+
+---
+
+## Manuscript to Repository Map
+
+Reviewers and readers can use [`MANUSCRIPT_MAP.md`](MANUSCRIPT_MAP.md) to locate the code and data behind each table in the paper.
 
 ---
 
